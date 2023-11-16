@@ -70,4 +70,3 @@
 ![](screenshot/14.png)
 ![](screenshot/15.png)
 
-## License
