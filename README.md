@@ -1,6 +1,7 @@
 <p><h1 align="center">基于SSM+Jsp的房屋租赁系统</h1></p>
 
 <p>QQ群: 377586148(加群获取sql文件)</p>
+<p> [个人站点: 从戎源码网](https://armycodes.com/)</p>
 
 ## 简介
 
@@ -70,5 +71,3 @@
 ![](screenshot/15.png)
 
 ## License
-
-##### [个人站点: 从戎源码网](https://armycodes.com/)
