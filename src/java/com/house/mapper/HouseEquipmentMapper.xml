@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.house.dao.HouseEquipmentMapper" >
+    <insert id="insert" parameterType="com.house.entity.HouseEquipment" >
+    insert into t_house_equipment ( house_id, type)
+    values (#{houseId}, #{type})
+  </insert>
+
+    <select id="selList" resultType="java.util.Map">
+
+        select id As id,
+            house_id As houseId,
+            type As type
+        from t_house_equipment
+        where house_id=#{houseId}
+
+    </select>
+
+    <delete id="deleteById" >
+        delete from t_house_equipment where house_id=#{houseId}
+    </delete>
+
+</mapper>

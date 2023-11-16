@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.house.dao.RolesMenusMapper" >
+
+
+    <delete id="deleteById" >
+        delete from t_roles_menus where role_id=#{roleId}
+    </delete>
+    <insert id="insert" parameterType="com.house.entity.RolesMenus" >
+        insert into t_roles_menus ( menu_id, role_id)
+        values (#{menuId}, #{roleId})
+    </insert>
+
+    <select id="getRolesMenusListByRoleId" resultType="java.util.Map">
+        select menu_id as menuId,role_id as roleId from t_roles_menus where role_id=#{roleId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.house.dao.RolesMapper" >
+    <insert id="insert" parameterType="com.house.entity.Roles" >
+    insert into t_roles ( role_name, role_remark)
+    values (#{roleName}, #{roleRemark})
+  </insert>
+    <update id="update"  parameterType="com.house.entity.Roles">
+        update t_roles set
+            role_name =#{roleName},
+            role_remark =#{ roleRemark}
+            where role_id=#{roleId}
+    </update>
+
+    <select id="selList" resultType="java.util.Map">
+
+        select role_id As roleId,
+            role_remark As roleRemark,
+            role_name As roleName
+        from t_roles
+        limit #{page},  #{limit}
+    </select>
+
+    <select id="selListCount" resultType="java.lang.Integer">
+        select count(*)  from t_roles
+    </select>
+
+    <delete id="rolesDeleteById" >
+        delete from t_roles where role_id=#{roleId}
+    </delete>
+
+    <select id="selByName" resultType="com.house.entity.Roles">
+        select role_id As roleId,
+            role_remark As roleRemark,
+            role_name As roleName from t_roles where role_name=#{roleName}
+    </select>
+
+    <select id="selById" resultType="java.util.Map">
+        select role_id As roleId,
+            role_remark As roleRemark,
+            role_name As roleName from t_roles where role_id=#{roleId}
+    </select>
+
+</mapper>

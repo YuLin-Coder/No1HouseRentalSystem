@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.house.dao.LogMapper" >
+
+  <insert id="insert" parameterType="com.house.entity.Log" >
+    insert into t_log (id, username, operation, method, params, ip,create_time)
+    values (#{id}, #{username}, #{operation}, #{method}, #{params}, #{ip}, #{createTime})
+  </insert>
+
+    <select id="selLogList" resultType="java.util.Map">
+
+        select id As id,
+            username As username,
+            operation As operation,
+            method As method,
+            params As params,
+            ip As ip,
+            create_time As createTime
+        from t_log
+        limit #{page},  #{limit}
+    </select>
+
+    <select id="selLogListCount" resultType="java.lang.Integer">
+        select count(*)  from t_log
+    </select>
+
+</mapper>

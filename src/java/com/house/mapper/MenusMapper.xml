@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.house.dao.MenusMapper" >
+
+  <insert id="insert" parameterType="com.house.entity.Menus" >
+    insert into t_menus ( title, icon, href, perms, spread, parent_id, sorting)
+    values ( #{title}, #{icon}, #{href}, #{perms}, #{spread},#{parentId}, #{sorting})
+  </insert>
+
+    <update id="update"  parameterType="com.house.entity.Menus">
+        update t_menus set
+            title =#{title},
+            icon =#{ icon},
+            href =#{ href},
+            perms =#{ perms},
+            spread =#{ spread},
+            sorting =#{ sorting},
+            parent_id =#{ parentId}
+            where menu_id=#{menuId}
+    </update>
+
+
+<!--    asc 按升序排列 (不用写，默认使用这个)
+desc 按降序排列 -->
+    <select id="selList" resultType="java.util.Map">
+
+        select menu_id As menuId,
+            title As title,
+            icon As icon,
+            href As href,
+            perms As perms,
+            spread As spread,
+            sorting As sorting,
+            parent_id As parentId
+        from t_menus
+        order by sorting desc
+
+    </select>
+
+    <select id="selById" resultType="java.util.Map">
+         select menu_id As menuId,
+            title As title,
+            icon As icon,
+            href As href,
+            perms As perms,
+            spread As spread,
+            sorting As sorting,
+            parent_id As parentId
+        from t_menus
+        where menu_id=#{menuId}
+    </select>
+
+    <delete id="menusDeleteById" >
+        delete from t_menus where menu_id=#{menuId}
+    </delete>
+
+</mapper>

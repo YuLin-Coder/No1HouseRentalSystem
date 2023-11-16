@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.house.dao.AdminMapper">
+    <resultMap type="com.house.entity.Admin" id="BasicMap">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="userName"/>
+        <result column="userpwd" jdbcType="VARCHAR" property="userPassword"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+    </resultMap>
+
+    <resultMap type="com.house.entity.User" id="AllUserMap">
+        <id column="u_id" jdbcType="INTEGER" property="userId"/>
+        <result column="u_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="u_password" jdbcType="VARCHAR" property="userPassword"/>
+        <result column="u_phone_number" jdbcType="VARCHAR" property="userPhoneNumber"/>
+        <result column="u_nickname" jdbcType="VARCHAR" property="userNickName"/>
+    </resultMap>
+
+    <resultMap type="com.house.entity.House" id="AllHouseMap">
+        <id column="h_id" jdbcType="INTEGER" property="houseId"/>
+        <result column="house_desc" jdbcType="VARCHAR" property="houseDesc"/>
+        <result column="house_model" jdbcType="VARCHAR" property="houseModel"/>
+        <result column="house_area" jdbcType="VARCHAR" property="houseArea"/>
+        <result column="house_floor" jdbcType="VARCHAR" property="houseFloor"/>
+        <result column="house_type" jdbcType="VARCHAR" property="houseType"/>
+        <result column="house_price" jdbcType="VARCHAR" property="housePrice"/>
+        <result column="house_address" jdbcType="VARCHAR" property="houseAddress"/>
+        <result column="address_lat" jdbcType="VARCHAR" property="addressLat"/>
+        <result column="address_lon" jdbcType="VARCHAR" property="addressLon"/>
+        <result column="house_image" jdbcType="VARCHAR" property="houseImage"/>
+        <result column="community_name" jdbcType="VARCHAR" property="communityName"/>
+        <result column="house_linkman" jdbcType="VARCHAR" property="houseLinkMan"/>
+        <result column="house_oriented" jdbcType="VARCHAR" property="houseOriented"/>
+        <result column="house_details_img" jdbcType="VARCHAR" property="houseDetailsImg"/>
+        <result column="publisher" jdbcType="VARCHAR" property="publisher"/>
+        <result column="publish_time" jdbcType="VARCHAR" property="publishTime"/>
+    </resultMap>
+
+    <!-- 管理员登录 -->
+    <select id="adminAccess" resultMap="BasicMap" parameterType="com.house.entity.Admin">
+        select *
+        from t_admin
+        where username = #{userName}
+        and userpwd = #{userPassword}
+    </select>
+
+    <!-- 查询所有用户 -->
+    <select id="findAllUser" resultMap="AllUserMap">
+        select *
+        from t_users
+    </select>
+
+    <select id="findAllHouse" resultMap="AllHouseMap" parameterType="com.house.entity.Page">
+        select *
+        from t_house
+        limit #{page},#{limit}
+    </select>
+
+    <delete id="deleteHouse" parameterType="int">
+        delete
+        from t_house
+        where h_id = #{houseId}
+    </delete>
+
+    <select id="findUserById" parameterType="int" resultMap="AllUserMap">
+        select *
+        from t_users
+        where u_id = #{userId}
+    </select>
+
+    <update id="updateUser" parameterType="com.house.entity.User">
+        update t_users
+        set u_name        = #{userName},
+            u_password    = #{userPassword},
+            u_phone_number=#{userPhoneNumber},
+            u_nickname    = #{userNickName}
+        where u_id = #{userId}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete
+        from t_users
+        where u_id = #{userId}
+    </delete>
+
+    <select id="checkAdminPwd" parameterType="com.house.entity.Admin" resultMap="BasicMap">
+        select *
+        from t_admin
+        where userpwd = #{userPassword}
+          and id = #{id}
+    </select>
+
+    <update id="updateAdminPwd" parameterType="com.house.entity.Admin">
+        update t_admin
+        set userpwd=#{userPassword}
+        where id = #{id}
+    </update>
+
+    <select id="findRoleAll" resultType="java.util.Map">
+        select  role_id As roleId,
+            role_remark As roleRemark,
+            role_name As roleName from t_roles
+    </select>
+
+    <delete id="adminDeleteById" >
+        delete from t_admin where id=#{id}
+    </delete>
+
+    <insert id="addAdmin" >
+    insert into t_admin ( username, userpwd, role_id)
+    values ( #{username}, #{userpwd}, #{roleId})
+  </insert>
+
+    <update id="editAdmin"  parameterType="com.house.entity.Admin">
+        update t_admin set
+            username =#{userName},
+            role_id =#{ roleId}
+            where id=#{id}
+    </update>
+
+    <update id="editAdminPwd"  >
+        update t_admin set
+            userpwd =#{userpwd}
+            where id=#{id}
+    </update>
+
+
+
+    <select id="selList" resultType="java.util.Map">
+
+        select  ta.username as username,
+                ta.userpwd as userpwd,
+                ta.id as id,
+                tr.role_id as roleId,
+                tr.role_name as roleName
+        from t_admin ta
+        left join t_roles tr on tr.role_id= ta.role_id
+        limit #{page},  #{limit}
+    </select>
+
+    <select id="selListCount" resultType="java.lang.Integer">
+        select count(*)  from t_admin
+    </select>
+
+
+    <select id="getMyMenuListByRoleId" resultType="java.util.Map">
+
+        select menu_id As menuId,
+            title As title,
+            icon As icon,
+            href As href,
+            perms As perms,
+            spread As spread,
+            sorting As sorting,
+            parent_id As parentId
+        from t_menus
+        where menu_id in(select menu_id from t_roles_menus where role_id=#{roleId})
+    </select>
+
+
+
+
+</mapper>
