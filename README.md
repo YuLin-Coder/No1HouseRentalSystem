@@ -1,10 +1,10 @@
 <p><h1 align="center">基于SSM+Jsp的房屋租赁系统</h1></p>
 
-<p> 完整代码获取地址：从戎源码网 (https://armycodes.com/) </p>
-<p> 作者微信：19941326836 QQ：952045282</p>
-<p> 承接计算机毕业设计、Java毕业设计、Python毕业设计、深度学习、机器学习</p>
-<p> 作者微信：19941326836 QQ：952045282</p>
-<p> 选题+开题报告+任务书+程序定制+安装调试+论文+答辩ppt 一条龙服务</p>
+- 完整代码获取地址：从戎源码网 ([https://armycodes.com/](https://armycodes.com/))
+- 作者微信：19941326836  QQ：952045282 
+- 承接计算机毕业设计、Java毕业设计、Python毕业设计、深度学习、机器学习
+- 选题+开题报告+任务书+程序定制+安装调试+论文+答辩ppt 一条龙服务
+- 所有选题地址（https://github.com/YuLin-Coder/AllProjectCatalog）
 
 ## 项目介绍
 
